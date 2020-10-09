@@ -43,9 +43,6 @@
                 type: Array,
                 default: []
             },
-        },
-
-        mounted() {
         }
     }
 </script>
