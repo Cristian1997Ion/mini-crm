@@ -4,11 +4,13 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Client
  * @package App\Models
+ * @mixin \Illuminate\Database\Eloquent\Builder
  *
  * @property integer $id
  * @property string $first_name
