@@ -28,7 +28,7 @@
             href: String,
             type: {
                 type: String,
-                value: 'button'
+                value: ''
             },
             iconClasses: {
                 type: String,

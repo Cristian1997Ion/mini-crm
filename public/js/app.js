@@ -1936,7 +1936,7 @@ __webpack_require__.r(__webpack_exports__);
     href: String,
     type: {
       type: String,
-      value: 'button'
+      value: ''
     },
     iconClasses: {
       type: String,
@@ -37739,7 +37739,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
+    return _c("thead", { staticClass: "bg-primary text-light" }, [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),

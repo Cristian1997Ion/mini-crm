@@ -1,6 +1,6 @@
 <template>
     <table class="table table-striped">
-        <thead class="thead-dark">
+        <thead class="bg-primary text-light">
             <tr>
                 <th>ID</th>
                 <th>Name</th>

@@ -24,7 +24,7 @@ class ClientController extends Controller
     /** Displays a lists of all clients **/
     public function index()
     {
-        $clients = Client::paginate(1);
+        $clients = Client::paginate(10);
 
         return view(
             'clients.index',
