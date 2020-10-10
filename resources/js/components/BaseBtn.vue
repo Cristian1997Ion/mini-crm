@@ -1,6 +1,7 @@
 <template>
     <component
         class="btn"
+        :type="type"
         :class="[{[`btn-${size}`]: size}, `btn-${variant}`]"
         :href="href"
         :title="title"
@@ -25,6 +26,10 @@
             },
             tag: String,
             href: String,
+            type: {
+                type: String,
+                value: 'button'
+            },
             iconClasses: {
                 type: String,
                 default: ''

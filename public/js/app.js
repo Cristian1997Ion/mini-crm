@@ -1923,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BaseBtn",
   props: {
@@ -1933,6 +1934,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     tag: String,
     href: String,
+    type: {
+      type: String,
+      value: 'button'
+    },
     iconClasses: {
       type: String,
       "default": ''
@@ -2017,8 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       "default": []
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -37648,7 +37652,12 @@ var render = function() {
         ((_obj = {}), (_obj["btn-" + _vm.size] = _vm.size), _obj),
         "btn-" + _vm.variant
       ],
-      attrs: { href: _vm.href, title: _vm.title, disabled: _vm.disabled }
+      attrs: {
+        type: _vm.type,
+        href: _vm.href,
+        title: _vm.title,
+        disabled: _vm.disabled
+      }
     },
     [
       _vm.hasIcons ? _c("span", { class: _vm.iconClasses }) : _vm._e(),
