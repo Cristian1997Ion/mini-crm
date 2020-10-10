@@ -23,8 +23,7 @@ class CreateClientsTable extends Migration
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('email',128);
-            $table->boolean('has_avatar')->default(false);
-
+            $table->string('avatar');
         });
     }
 
