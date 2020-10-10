@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\ClientController::class, 'index'])->name('home');
-Route::get('/clients', [\App\Http\Controllers\ClientController::class, 'index'])->name('clients');
-
+Route::resources([
+    'clients'      => \App\Http\Controllers\ClientController::class,
+    'transactions' => \App\Http\Controllers\TransactionController::class
+]);
