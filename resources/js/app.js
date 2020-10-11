@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('clients-table', require('./components/ClientsTable.vue').default);
+Vue.component('transactions-table', require('./components/TransactionsTable.vue').default);
 Vue.component('client-form', require('./components/ClientForm.vue').default);
 Vue.component('base-btn', require('./components/BaseBtn.vue').default);
 Vue.component('alert-modal', require('./components/AlertModal.vue').default);

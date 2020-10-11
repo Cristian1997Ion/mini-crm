@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
+/**
+ * Class TransactionController
+ * @package App\Http\Controllers
+ */
 class TransactionController extends Controller
 {
     /**
@@ -13,7 +18,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $transactions = Transaction::with('client')->paginate(10);
 
+        return response()->view(
+            'transactions.index',
+            ['transactions' => $transactions]
+        );
     }
 
     /**
