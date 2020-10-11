@@ -2124,6 +2124,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": null
     },
+    defaultAvatar: '',
     formAction: '',
     formMethod: '',
     errors: Array
@@ -2131,8 +2132,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showModal: false,
+      formData: {
+        id: '',
+        first_name: '',
+        email: ''
+      },
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
+  },
+  mounted: function mounted() {
+    this.formData = this.client || this.formData;
   },
   computed: {
     hasAvatar: function hasAvatar() {
@@ -2168,7 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showModal = true;
     },
     handleSendConfirm: function handleSendConfirm() {
-      axios.put("/clients/".concat(this.client.id, "/removeAvatar")).then(function () {
+      axios.put("/clients/".concat(this.formData.id, "/removeAvatar")).then(function () {
         location.reload();
       });
     }
@@ -2222,12 +2231,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ClientsTable.vue",
   props: {
     clients: {
       type: Array,
       "default": []
+    }
+  },
+  data: function data() {
+    return {
+      showModal: false,
+      selectedClientId: 0
+    };
+  },
+  methods: {
+    deleteClient: function deleteClient(id) {
+      this.selectedClientId = id;
+      this.showModal = true;
+    },
+    handleConfirm: function handleConfirm() {
+      if (this.selectedClientId > 0) {
+        axios["delete"]("/clients/".concat(this.selectedClientId)).then(function () {
+          location.reload();
+        });
+      }
     }
   }
 });
@@ -38653,7 +38690,7 @@ var render = function() {
       _c(
         "form",
         {
-          staticClass: "col-md-8",
+          staticClass: "col-md-12",
           attrs: {
             action: _vm.formAction,
             method: _vm.formMethod,
@@ -38668,7 +38705,7 @@ var render = function() {
           _vm._v(" "),
           _c("input", {
             attrs: { type: "hidden", name: "id" },
-            domProps: { value: _vm.client.id }
+            domProps: { value: _vm.formData.id }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "form-row pb-2" }, [
@@ -38688,7 +38725,7 @@ var render = function() {
               [
                 _c("img", {
                   attrs: {
-                    src: _vm.client.avatar,
+                    src: _vm.hasAvatar ? _vm.client.avatar : _vm.defaultAvatar,
                     alt: "default",
                     width: "150",
                     height: "150",
@@ -38738,7 +38775,7 @@ var render = function() {
                             },
                             nativeOn: {
                               click: function($event) {
-                                return _vm.removeAvatar(_vm.client.id)
+                                return _vm.removeAvatar(_vm.formData.id)
                               }
                             }
                           })
@@ -38789,7 +38826,7 @@ var render = function() {
                   id: "firstName",
                   required: ""
                 },
-                domProps: { value: _vm.client.first_name }
+                domProps: { value: _vm.formData.first_name }
               })
             ]),
             _vm._v(" "),
@@ -38806,7 +38843,7 @@ var render = function() {
                   id: "lastName",
                   required: ""
                 },
-                domProps: { value: _vm.client.last_name }
+                domProps: { value: _vm.formData.last_name }
               })
             ])
           ]),
@@ -38823,7 +38860,7 @@ var render = function() {
                   id: "email",
                   required: ""
                 },
-                domProps: { value: _vm.client.email }
+                domProps: { value: _vm.formData.email }
               })
             ])
           ]),
@@ -38881,51 +38918,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-striped" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.clients, function(client) {
-        return _c("tr", [
-          _c("td", [_vm._v(_vm._s(client.id))]),
-          _vm._v(" "),
-          _c("td", [
-            _vm._v(_vm._s(client.first_name + " " + client.last_name))
-          ]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(client.email))]),
-          _vm._v(" "),
-          _c(
-            "td",
-            [
-              _c("base-btn", {
-                attrs: {
-                  tag: "a",
-                  href: "/clients/" + client.id + "/edit",
-                  variant: "outline-primary",
-                  size: "sm",
-                  title: "Edit client's info",
-                  "icon-classes": "oi oi-pencil"
-                }
-              }),
+  return _c(
+    "div",
+    { staticClass: "content" },
+    [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.clients, function(client) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(client.id))]),
               _vm._v(" "),
-              _c("base-btn", {
-                attrs: {
-                  variant: "outline-danger",
-                  size: "sm",
-                  title: "Delete client",
-                  "icon-classes": "oi oi-x"
-                }
-              })
-            ],
-            1
-          )
-        ])
-      }),
-      0
-    )
-  ])
+              _c("td", [
+                _vm._v(_vm._s(client.first_name + " " + client.last_name))
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(client.email))]),
+              _vm._v(" "),
+              _c(
+                "td",
+                [
+                  _c("base-btn", {
+                    attrs: {
+                      tag: "a",
+                      href: "/clients/" + client.id + "/edit",
+                      variant: "outline-primary",
+                      size: "sm",
+                      title: "Edit client's info",
+                      "icon-classes": "oi oi-pencil"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-btn", {
+                    attrs: {
+                      variant: "outline-danger",
+                      size: "sm",
+                      title: "Delete client",
+                      "icon-classes": "oi oi-x"
+                    },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.deleteClient(client.id)
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("alert-modal", {
+        attrs: {
+          title: "Warning",
+          message: "Are you sure you want to remove this client?",
+          "show-modal": _vm.showModal
+        },
+        on: { "send-message": _vm.handleConfirm }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

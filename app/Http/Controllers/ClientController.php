@@ -57,7 +57,7 @@ class ClientController extends Controller
 
         if (!$client = Client::find($request->post('id', 0))) {
             $client         = new Client();
-            $client->avatar = asset('/storage/avatars/' . self::DEFAULT_AVATAR);
+            $client->avatar = self::DEFAULT_AVATAR;
         }
 
         $client->first_name = $request->post('firstName');
@@ -126,11 +126,12 @@ class ClientController extends Controller
      * Remove client.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        if ($client = Client::find($id)) {
+            $client->delete();
+        }
     }
 
     /**

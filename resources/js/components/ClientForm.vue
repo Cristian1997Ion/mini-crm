@@ -4,15 +4,15 @@
             :action="formAction"
             v-bind:method="formMethod"
             enctype="multipart/form-data"
-            class="col-md-8"
+            class="col-md-12"
         >
             <input type="hidden" name="_token" :value="csrf">
-            <input type="hidden" name="id" :value="client.id">
+            <input type="hidden" name="id" :value="formData.id">
 
             <div class="form-row pb-2">
                 <input type="file" class="d-none" name="avatar" id="avatarInput" @change="useAvatar($event)">
                 <div class="col-md-12 justify-content-center d-flex">
-                    <img :src="client.avatar" alt="default" width="150" height="150" id="avatarImage"/>
+                    <img :src="hasAvatar? client.avatar : defaultAvatar" alt="default" width="150" height="150" id="avatarImage"/>
                 </div>
                 <div class="col-md-12 justify-content-center d-flex">
                     <div class="row">
@@ -31,7 +31,7 @@
                                 text="remove"
                                 size="sm"
                                 type="button"
-                                @click.native="removeAvatar(client.id)"
+                                @click.native="removeAvatar(formData.id)"
                             />
                         </div>
                     </div>
@@ -49,17 +49,17 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" name="firstName" id="firstName" required :value="client.first_name">
+                    <input type="text" class="form-control" name="firstName" id="firstName" required :value="formData.first_name">
                 </div>
                 <div class="form-group col">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" id="lastName" required :value="client.last_name">
+                    <input type="text" class="form-control" name="lastName" id="lastName" required :value="formData.last_name">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" required :value="client.email">
+                    <input type="email" class="form-control" name="email" id="email" required :value="formData.email">
                 </div>
             </div>
 
@@ -90,8 +90,9 @@
         props: {
             client: {
                 type: Object,
-                default: null,
+                default: null
             },
+            defaultAvatar: '',
             formAction: '',
             formMethod: '',
             errors: Array
@@ -99,8 +100,17 @@
 
         data: () => ({
             showModal: false,
+            formData: {
+                id: '',
+                first_name: '',
+                email: ''
+            },
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }),
+
+        mounted() {
+            this.formData = this.client || this.formData;
+        },
 
         computed: {
             hasAvatar() {
@@ -135,7 +145,7 @@
             },
             handleSendConfirm() {
                 axios
-                    .put(`/clients/${this.client.id}/removeAvatar`)
+                    .put(`/clients/${this.formData.id}/removeAvatar`)
                     .then(function () {
                         location.reload();
                     });

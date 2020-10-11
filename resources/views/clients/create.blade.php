@@ -17,7 +17,7 @@
             <client-form
                 form-action="{{ @route('clients.store') }}"
                 form-method="post"
-                avatar="{{ asset('storage/avatars/default-avatar.png') }}"
+                default-avatar="{{ asset('storage/avatars/default-avatar.png') }}"
             ></client-form>
         </div>
     </div>
