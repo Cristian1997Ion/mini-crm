@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $first_name
  * @property string $last_name
  * @property string $email
+ * @property boolean $avatar
  */
 class Client extends Model
 {

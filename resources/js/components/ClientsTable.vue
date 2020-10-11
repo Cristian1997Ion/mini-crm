@@ -16,7 +16,7 @@
             <td>
                 <base-btn
                     tag="a"
-                    :href="`/clients/edit&id=${client.id}`"
+                    :href="`/clients/${client.id}/edit`"
                     variant="outline-primary"
                     size="sm"
                     title="Edit client's info"

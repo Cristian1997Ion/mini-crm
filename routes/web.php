@@ -16,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\ClientController::class, 'index'])->name('home');
+Route::get(
+    '/',
+    [App\Http\Controllers\ClientController::class, 'index']
+)->name('home');
+
+Route::put(
+    '/clients/{id}/removeAvatar',
+    [App\Http\Controllers\ClientController::class, 'removeAvatar']
+)->name('removeAvatar');
+
 Route::resources([
     'clients'      => \App\Http\Controllers\ClientController::class,
     'transactions' => \App\Http\Controllers\TransactionController::class
