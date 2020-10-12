@@ -55,10 +55,13 @@
             <tr v-for="transaction in transactions">
                 <td>{{ transaction.id }}</td>
                 <td>
-                    <a :href="`clients/${transaction.client_id}/edit`">
+                    <div class="d-flex justify-content-start pl-3">
                         <img :src="`/storage/avatars/${transaction.client.avatar}`" width="50">
-                        {{ getTransactionClientName(transaction) }}
-                    </a>
+                        &nbsp;
+                        <a :href="`clients/${transaction.client_id}/edit`">
+                            {{ getTransactionClientName(transaction) }}
+                        </a>
+                    </div>
                 </td>
                 <td>{{ transaction.amount }}</td>
                 <td>{{ transaction.created_at }}</td>
@@ -147,5 +150,7 @@
 </script>
 
 <style scoped>
-
+    td {
+        text-align: center;
+    }
 </style>

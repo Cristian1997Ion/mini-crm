@@ -48,8 +48,8 @@
             <tbody>
             <tr v-for="client in clients">
                 <td>{{ client.id }}. <img :src="`/storage/avatars/${client.avatar}`" width="50"></td>
-                <td>{{ `${client.first_name} ${client.last_name}` }}</td>
-                <td>{{ client.email }}</td>
+                <td class="text-center">{{ `${client.first_name} ${client.last_name}` }}</td>
+                <td class="text-center">{{ client.email }}</td>
                 <td>
                     <base-btn
                         tag="a"
