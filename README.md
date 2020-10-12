@@ -9,6 +9,7 @@ Welcome to MiniCRM.
     - <code>php artisan key:generate</code>
     - <code>php artisan migrate </code> (this generates your tables)
     - <code>php artisan db:seed --class=AdminSeed </code> (this generates default admin)
+    - <code>php artisan storage:link</code> (generates symlink for storage in public)
     - <code>php artisan serve</code>
 4. At this point you should be able to access localhost:8000
 and login with:  admin@admin.com : password
