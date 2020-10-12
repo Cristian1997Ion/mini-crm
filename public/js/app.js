@@ -2284,6 +2284,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ClientsTable.vue",
   props: {
@@ -39338,7 +39347,7 @@ var render = function() {
             _c("th", [
               _c("div", { staticClass: "col-md-3" }, [_vm._v("Name")]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "col-md-11" }, [
                 _c("input", {
                   staticClass: "form-control-sm form-control-range filter",
                   attrs: { type: "text", name: "name" },
@@ -39350,7 +39359,7 @@ var render = function() {
             _c("th", [
               _c("div", { staticClass: "col-md-3" }, [_vm._v("Email")]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "col-md-11" }, [
                 _c("input", {
                   staticClass: "form-control-sm form-control-range filter",
                   attrs: { type: "email", name: "email" },
@@ -39359,7 +39368,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("th", { staticClass: "col-md-1" }, [
+            _c("th", { staticClass: "col-md-2" }, [
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
@@ -39434,6 +39443,17 @@ var render = function() {
                       click: function($event) {
                         return _vm.deleteClient(client.id)
                       }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-btn", {
+                    attrs: {
+                      tag: "a",
+                      href: "/transactions?client=" + client.id,
+                      variant: "outline-secondary",
+                      size: "sm",
+                      title: "View transactions",
+                      "icon-classes": "oi oi-list-rich"
                     }
                   })
                 ],

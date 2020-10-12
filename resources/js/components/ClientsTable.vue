@@ -18,17 +18,17 @@
                 </th>
                 <th>
                     <div class="col-md-3">Name</div>
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <input type="text" name="name" class="form-control-sm form-control-range filter" :value="nameFilter">
                     </div>
                 </th>
                 <th>
                     <div class="col-md-3">Email</div>
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <input type="email" name="email" class="form-control-sm form-control-range filter" :value="emailFilter">
                     </div>
                 </th>
-                <th class="col-md-1">
+                <th class="col-md-2">
                     <div class="row">
                         <div class="col-md-12">Options</div>
                     </div>
@@ -66,6 +66,15 @@
                         icon-classes="oi oi-x"
                         @click.native="deleteClient(client.id)"
                     />
+                    <base-btn
+                        tag="a"
+                        :href="`/transactions?client=${client.id}`"
+                        variant="outline-secondary"
+                        size="sm"
+                        title="View transactions"
+                        icon-classes="oi oi-list-rich"
+                    >
+                    </base-btn>
                 </td>
             </tr>
             </tbody>
