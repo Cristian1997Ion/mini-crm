@@ -8,14 +8,14 @@
                             <div class="modal-header">
                                 <h5 class="modal-title">{{ title }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" @click="showModal = false">&times;</span>
+                                    <span aria-hidden="true" @click="hideModal">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <p>{{ message }}</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" @click="showModal = false">Cancel</button>
+                                <button type="button" class="btn btn-secondary" @click="hideModal">Cancel</button>
                                 <button type="button" class="btn btn-primary" @click="confirmModal">Ok</button>
                             </div>
                         </div>
@@ -39,7 +39,10 @@
         methods: {
             confirmModal() {
                 this.$emit('send-message');
-            }
+            },
+            hideModal() {
+                this.$emit('hide-modal');
+            },
         }
     }
 </script>

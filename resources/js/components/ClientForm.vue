@@ -12,7 +12,7 @@
             <div class="form-row pb-2">
                 <input type="file" class="d-none" name="avatar" id="avatarInput" @change="useAvatar($event)">
                 <div class="col-md-12 justify-content-center d-flex">
-                    <img :src="hasAvatar? client.avatar : defaultAvatar" alt="default" width="150" height="150" id="avatarImage"/>
+                    <img :src="hasAvatar? client.avatar : defaultAvatar" alt="default" width="150" id="avatarImage"/>
                 </div>
                 <div class="col-md-12 justify-content-center d-flex">
                     <div class="row">
@@ -77,6 +77,7 @@
             title="Warning"
             message="Do you really want to remove client's avatar?"
             :show-modal="showModal"
+            @hide-modal="handleHideModal"
             @send-message="handleSendConfirm"
         />
     </div>
@@ -149,6 +150,9 @@
                     .then(function () {
                         location.reload();
                     });
+            },
+            handleHideModal() {
+                this.showModal = false;
             }
         }
     }

@@ -19,12 +19,16 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+import vSelect from "vue-select";
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('clients-table', require('./components/ClientsTable.vue').default);
 Vue.component('transactions-table', require('./components/TransactionsTable.vue').default);
+Vue.component('transaction-form', require('./components/TransactionForm.vue').default);
 Vue.component('client-form', require('./components/ClientForm.vue').default);
 Vue.component('base-btn', require('./components/BaseBtn.vue').default);
 Vue.component('alert-modal', require('./components/AlertModal.vue').default);
+Vue.component("v-select", vSelect);
 
 
 /**

@@ -11,7 +11,7 @@
             </thead>
             <tbody>
             <tr v-for="client in clients">
-                <td>{{ client.id }}</td>
+                <td>{{ client.id }}. <img :src="`/storage/avatars/${client.avatar}`" width="50"></td>
                 <td>{{ `${client.first_name} ${client.last_name}` }}</td>
                 <td>{{ client.email }}</td>
                 <td>
@@ -38,6 +38,7 @@
             title="Warning"
             message="Are you sure you want to remove this client?"
             @send-message="handleConfirm"
+            @hide-modal="handleHideModal"
             :show-modal="showModal"
         />
     </div>
@@ -73,7 +74,10 @@
                         })
                 }
             },
-
+            handleHideModal() {
+                this.selectedClientId = 0;
+                this.showModal = false;
+            }
         }
     }
 </script>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ClientController
@@ -27,7 +29,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::paginate(10);
+        $faker = Factory::create();
+
+        $clients = Client::query()->orderByDesc('id')->paginate(10);
 
         return response()->view('clients.index', ['clients' => $clients]);
     }
@@ -53,6 +57,7 @@ class ClientController extends Controller
             'firstName' => 'required|max:50',
             'lastName'  => 'required|max:50',
             'email'     => 'required|email',
+            'avatar'    => 'image|mimes:jpeg,png,jpg,gif,svg|dimensions:min_width=100,min_height=100'
         ]);
 
         if (!$client = Client::find($request->post('id', 0))) {
@@ -145,5 +150,24 @@ class ClientController extends Controller
             $client->avatar = self::DEFAULT_AVATAR;
             $client->save();
         }
+    }
+
+    /**
+     * @param string $search
+     * @return string
+     */
+    public function searchClients($search = '')
+    {
+        $clients = DB::table('clients')->select([
+                'id as code',
+                DB::raw('CONCAT(id, \'. \', first_name, \' \', last_name) as label'),
+                'avatar'
+            ])->where('id', 'like', "{$search}%")
+            ->orWhere('first_name', 'like' , "{$search}%")
+            ->orWhere('last_name', 'like', "{$search}%")
+            ->limit(10)
+            ->get();
+
+        return $clients->toJson();
     }
 }

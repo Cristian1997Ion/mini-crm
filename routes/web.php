@@ -26,6 +26,12 @@ Route::put(
     [App\Http\Controllers\ClientController::class, 'removeAvatar']
 )->name('removeAvatar');
 
+Route::get(
+    '/clients/search/{search?}',
+    [App\Http\Controllers\ClientController::class, 'searchClients']
+)->name('searchClients');
+
+
 Route::resources([
     'clients'      => \App\Http\Controllers\ClientController::class,
     'transactions' => \App\Http\Controllers\TransactionController::class

@@ -15,7 +15,7 @@
                 <td>{{ transaction.id }}</td>
                 <td>
                     <a :href="`clients/${transaction.client_id}/edit`">
-                        <img :src="`storage/avatars/${transaction.client.avatar}`" width="50" height="50">
+                        <img :src="`/storage/avatars/${transaction.client.avatar}`" width="50">
                         {{ getTransactionClientName(transaction) }}
                     </a>
                 </td>
@@ -24,7 +24,7 @@
                 <td>
                     <base-btn
                         tag="a"
-                        :href="`/transaction/${transaction.id}/edit`"
+                        :href="`/transactions/${transaction.id}/edit`"
                         variant="outline-primary"
                         size="sm"
                         title="Edit client's info"
@@ -43,8 +43,9 @@
         </table>
         <alert-modal
             title="Warning"
-            message="Are you sure you want to remove this client?"
+            message="Are you sure you want to remove this transaction?"
             @send-message="handleConfirm"
+            @hide-modal="handleHideModal"
             :show-modal="showModal"
         />
     </div>
@@ -63,7 +64,7 @@
 
         data: () => ({
             showModal: false,
-            selectedClientId: 0,
+            selectedTransactionId: 0,
         }),
 
         methods: {
@@ -71,17 +72,21 @@
                 return transaction.client.first_name + ' ' + transaction.client.last_name;
             },
             deleteTransaction(id) {
-                this.selectedClientId = id;
+                this.selectedTransactionId = id;
                 this.showModal = true;
             },
             handleConfirm() {
-                if (this.selectedClientId > 0) {
+                if (this.selectedTransactionId > 0) {
                     axios
-                        .delete(`/transactions/${this.selectedClientId}`)
+                        .delete(`/transactions/${this.selectedTransactionId}`)
                         .then(function () {
                             location.reload();
                         })
                 }
+            },
+            handleHideModal() {
+                this.selectedTransactionId = 0;
+                this.showModal = false;
             }
         }
     }

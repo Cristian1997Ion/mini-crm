@@ -18,7 +18,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('client')->paginate(10);
+        $transactions = Transaction::with('client')->orderByDesc('id')->paginate(10);
 
         return response()->view(
             'transactions.index',
@@ -33,7 +33,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('transactions.create');
     }
 
     /**
@@ -44,7 +44,21 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'client_id' => 'required',
+            'amount' => 'required',
+        ]);
+
+        if (!$transaction = Transaction::find($request->post('id', 0))) {
+            $transaction = new Transaction();
+        }
+
+        $transaction->client_id = $request->post('client_id');
+        $transaction->amount    = $request->post('amount');
+
+        $transaction->save();
+
+        return response()->redirectTo(@route('transactions.edit', $transaction->id));
     }
 
     /**
@@ -66,7 +80,12 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$transaction = Transaction::with('client')->find($id)) {
+            return response()->view('layouts.error', ['error' => 'Transaction not found!']);
+        }
+
+        return response()->view('transactions.edit', ['transaction' => $transaction]);
+
     }
 
     /**
@@ -85,10 +104,11 @@ class TransactionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        if ($transaction = Transaction::find($id)) {
+            $transaction->delete();
+        }
     }
 }

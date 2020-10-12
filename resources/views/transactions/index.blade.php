@@ -8,7 +8,7 @@
                 <div class="d-inline float-right">
                     <base-btn
                         tag="a"
-                        href="/clients/create"
+                        href="{{@route('transactions.create')}}"
                         size="sm"
                         title="Add a new transaction"
                         icon-classes="oi oi-plus"
