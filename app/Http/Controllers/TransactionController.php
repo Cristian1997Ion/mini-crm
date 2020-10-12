@@ -18,11 +18,37 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('client')->orderByDesc('id')->paginate(10);
+        $transactions = Transaction::with('client');
 
+        if ($id = \request()->get('id', false)) {
+            $transactions->where('id', '=', $id);
+        }
+
+        if ($client = \request()->get('client', false)) {
+            $transactions->where('client_id', '=', $client);
+        }
+
+        if ($amount = \request()->get('amount', false)) {
+            $transactions->where('amount', 'LIKE', "{$amount}%");
+        }
+
+        if ($created = \request()->get('created', false)) {
+            $transactions->where('created_at', 'LIKE', "{$created}%");
+        }
+
+
+        $transactions = $transactions->orderByDesc('id')->paginate(10);
         return response()->view(
             'transactions.index',
-            ['transactions' => $transactions]
+            [
+                'transactions' => $transactions->appends(\request()->input()),
+                'filters'      => [
+                    'id'      => $id,
+                    'client'  => $client,
+                    'amount'  => $amount,
+                    'created' => $created,
+                ]
+            ]
         );
     }
 

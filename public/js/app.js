@@ -2561,18 +2561,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TransactionsTable.vue",
   props: {
     transactions: {
       type: Array,
       "default": []
-    }
+    },
+    idFilter: '',
+    clientFilter: '',
+    amountFilter: '',
+    createdFilter: ''
   },
   data: function data() {
     return {
       showModal: false,
-      selectedTransactionId: 0
+      selectedTransactionId: 0,
+      locationRedirect: window.location.href.split('?')[0] + '?page=1'
     };
   },
   methods: {
@@ -2593,6 +2639,15 @@ __webpack_require__.r(__webpack_exports__);
     handleHideModal: function handleHideModal() {
       this.selectedTransactionId = 0;
       this.showModal = false;
+    },
+    filter: function filter() {
+      var filters = document.querySelectorAll('.filter');
+
+      for (var i = 0; i < filters.length; i++) {
+        this.locationRedirect += '&' + filters[i].getAttribute('name') + '=' + filters[i].value;
+      }
+
+      location.href = this.locationRedirect;
     }
   }
 });
@@ -39613,7 +39668,85 @@ var render = function() {
     { staticClass: "content" },
     [
       _c("table", { staticClass: "table table-striped" }, [
-        _vm._m(0),
+        _c("thead", { staticClass: "bg-primary text-light" }, [
+          _c("tr", [
+            _c("th", { staticClass: "col-md-2" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("input", {
+                    staticClass: "form-control-sm form-control-range filter",
+                    attrs: { type: "number", min: "0", name: "id" },
+                    domProps: { value: _vm.idFilter }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", [
+              _c("div", { staticClass: "col-md-3" }, [_vm._v("Client")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("input", {
+                  staticClass: "form-control-sm form-control-range filter",
+                  attrs: { type: "text", name: "client" },
+                  domProps: { value: _vm.clientFilter }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", [
+              _c("div", { staticClass: "col-md-3" }, [_vm._v("Amount")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("input", {
+                  staticClass: "form-control-sm form-control-range filter",
+                  attrs: { type: "email", name: "amount" },
+                  domProps: { value: _vm.amountFilter }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", [
+              _c("div", { staticClass: "col-md-4" }, [_vm._v("Created")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("input", {
+                  staticClass: "form-control-sm form-control-range filter",
+                  attrs: { type: "email", name: "created" },
+                  domProps: { value: _vm.createdFilter }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "col-md-1" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  [
+                    _c("base-btn", {
+                      attrs: {
+                        variant: "outline-light",
+                        text: "filter",
+                        size: "sm"
+                      },
+                      nativeOn: {
+                        click: function($event) {
+                          return _vm.filter($event)
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -39705,18 +39838,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "bg-primary text-light" }, [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Client")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Amount")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Created At")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Options")])
-      ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [_vm._v("ID")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [_vm._v("Options")])
     ])
   }
 ]

@@ -3,11 +3,52 @@
         <table class="table table-striped">
             <thead class="bg-primary text-light">
             <tr>
-                <th>ID</th>
-                <th>Client</th>
-                <th>Amount</th>
-                <th>Created At</th>
-                <th>Options</th>
+                <th class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">ID</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input
+                                type="number"
+                                min="0" name="id"
+                                class="form-control-sm form-control-range filter" :value="idFilter">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="col-md-3">Client</div>
+                    <div class="col-md-12">
+                        <input type="text" name="client" class="form-control-sm form-control-range filter" :value="clientFilter">
+                    </div>
+                </th>
+                <th>
+                    <div class="col-md-3">Amount</div>
+                    <div class="col-md-12">
+                        <input type="email" name="amount" class="form-control-sm form-control-range filter" :value="amountFilter">
+                    </div>
+                </th>
+                <th>
+                    <div class="col-md-4">Created</div>
+                    <div class="col-md-12">
+                        <input type="email" name="created" class="form-control-sm form-control-range filter" :value="createdFilter">
+                    </div>
+                </th>
+                <th class="col-md-1">
+                    <div class="row">
+                        <div class="col-md-12">Options</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <base-btn
+                                variant="outline-light"
+                                text="filter"
+                                size="sm"
+                                @click.native="filter"
+                            ></base-btn>
+                        </div>
+                    </div>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -60,11 +101,16 @@
                 type: Array,
                 default: []
             },
+            idFilter: '',
+            clientFilter:'',
+            amountFilter:'',
+            createdFilter: '',
         },
 
         data: () => ({
             showModal: false,
             selectedTransactionId: 0,
+            locationRedirect: window.location.href.split('?')[0] + '?page=1'
         }),
 
         methods: {
@@ -87,6 +133,14 @@
             handleHideModal() {
                 this.selectedTransactionId = 0;
                 this.showModal = false;
+            },
+            filter() {
+                let filters =  document.querySelectorAll('.filter');
+                for (let i = 0; i < filters.length; i++) {
+                    this.locationRedirect += '&' + filters[i].getAttribute('name') + '=' + filters[i].value;
+                }
+
+                location.href = this.locationRedirect;
             }
         }
     }
