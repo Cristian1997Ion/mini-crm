@@ -24,7 +24,18 @@
                 </div>
             </h2>
         </div>
-        <clients-table v-bind:clients="{{ json_encode($clients->items()) }}"></clients-table>
+        <clients-table
+            v-bind:clients="{{ json_encode($clients->items()) }}"
+            @if(!empty($filters['id']))
+                v-bind:id-filter="'{{ $filters['id'] }}'"
+            @endif
+            @if(!empty($filters['name']))
+                v-bind:name-filter="'{{ $filters['name'] }}'"
+            @endif
+            @if(!empty($filters['email']))
+                v-bind:email-filter="'{{ $filters['email'] }}'"
+            @endif
+        ></clients-table>
         {{ $clients->links('pagination::bootstrap-4') }}
 
     </div>

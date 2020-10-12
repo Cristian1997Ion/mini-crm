@@ -29,9 +29,39 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::query()->orderByDesc('id')->paginate(10);
+        $clients = Client::query();
 
-        return response()->view('clients.index', ['clients' => $clients]);
+        // Filters from get
+
+        if ($id = \request()->get('id', false)) {
+            $clients->where('id', '=', $id);
+        }
+
+        if ($name = \request()->get('name', false)) {
+            $clients->where(function($query) use ($name) {
+                $query
+                    ->where('first_name', 'LIKE', "{$name}%")
+                    ->orWhere('last_name', 'LIKE', "{$name}%");
+            });
+        }
+
+        if ($email = \request()->get('email', false)) {
+            $clients->where('email', 'LIKE', "{$email}%");
+        }
+
+        $clients = $clients->orderByDesc('id')->paginate(10);
+
+        return response()->view(
+            'clients.index',
+            [
+                'clients' => $clients->appends(request()->input()),
+                'filters' => [
+                    'id'    => \request()->get('id', ''),
+                    'name'  => \request()->get('name', ''),
+                    'email' => \request()->get('email', '')
+                ]
+            ]
+        );
     }
 
     /**

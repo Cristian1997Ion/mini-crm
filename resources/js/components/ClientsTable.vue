@@ -3,10 +3,46 @@
         <table class="table table-striped">
             <thead class="bg-primary text-light">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Options</th>
+                <th class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">ID</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input
+                                type="number"
+                                min="0" name="id"
+                                class="form-control-sm form-control-range filter" :value="idFilter">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="col-md-3">Name</div>
+                    <div class="col-md-12">
+                        <input type="text" name="name" class="form-control-sm form-control-range filter" :value="nameFilter">
+                    </div>
+                </th>
+                <th>
+                    <div class="col-md-3">Email</div>
+                    <div class="col-md-12">
+                        <input type="email" name="email" class="form-control-sm form-control-range filter" :value="emailFilter">
+                    </div>
+                </th>
+                <th class="col-md-1">
+                    <div class="row">
+                        <div class="col-md-12">Options</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <base-btn
+                                variant="outline-light"
+                                text="filter"
+                                size="sm"
+                                @click.native="filter"
+                            ></base-btn>
+                        </div>
+                    </div>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -53,11 +89,15 @@
                 type: Array,
                 default: []
             },
+            idFilter: '',
+            nameFilter: '',
+            emailFilter: ''
         },
 
         data: () => ({
             showModal: false,
             selectedClientId: 0,
+            locationRedirect: window.location.href.split('?')[0] + '?page=1'
         }),
 
         methods: {
@@ -77,6 +117,14 @@
             handleHideModal() {
                 this.selectedClientId = 0;
                 this.showModal = false;
+            },
+            filter() {
+                let filters =  document.querySelectorAll('.filter');
+                for (let i = 0; i < filters.length; i++) {
+                    this.locationRedirect += '&' + filters[i].getAttribute('name') + '=' + filters[i].value;
+                }
+
+                location.href = this.locationRedirect;
             }
         }
     }
