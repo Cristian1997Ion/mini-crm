@@ -1,5 +1,6 @@
 # mini-crm
-Welcome to MiniCRM.
+Welcome to MiniCRM. 
+This project uses Laravel + Vue.js.
 
 + Steps:
 1. Clone this repository;
