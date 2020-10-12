@@ -29,8 +29,6 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $faker = Factory::create();
-
         $clients = Client::query()->orderByDesc('id')->paginate(10);
 
         return response()->view('clients.index', ['clients' => $clients]);
