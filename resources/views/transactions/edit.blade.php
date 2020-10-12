@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="pb-2">
-            <h2>{{ __('Edit transaction') }}</h2>
+            <h2>{{ __('Edit transaction #') . $transaction->id }}</h2>
             <hr>
         </div>
         <div class="justify-content-center d-flex">

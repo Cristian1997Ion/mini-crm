@@ -8,6 +8,7 @@ use App\Models\User;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class ClientController
@@ -163,6 +164,7 @@ class ClientController extends Controller
     public function destroy($id)
     {
         if ($client = Client::find($id)) {
+            $this->removeAvatar($id);
             $client->delete();
         }
     }
@@ -175,6 +177,10 @@ class ClientController extends Controller
     public function removeAvatar($id)
     {
         if ($client = Client::find($id)) {
+            if ($client->avatar !== self::DEFAULT_AVATAR) {
+                Storage::delete('public/avatars/' . $client->avatar);
+            }
+
             $client->avatar = self::DEFAULT_AVATAR;
             $client->save();
         }
