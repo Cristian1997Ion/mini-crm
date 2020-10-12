@@ -3,10 +3,7 @@ Welcome to MiniCRM.
 This project uses Laravel + Vue.js.
 
 + Steps:
-1. Clone this repository: <br>
- <code>
-    git clone https://github.com/Cristian1997Ion/mini-crm
- </code>
+1. Clone this repository:<code>git clone https://github.com/Cristian1997Ion/mini-crm</code>
 2. Copy .env-example to .env and adjust correctly
 3. Run: 
     - <code>npm install & composer install</code>
